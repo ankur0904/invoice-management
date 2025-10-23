@@ -1,0 +1,212 @@
+.grid-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+
+  // Excel-like styling
+  ::ng-deep {
+    .ag-root-wrapper {
+      border: 1px solid #d0d0d0;
+    }
+
+    .ag-header {
+      background-color: #f0f0f0;
+      border-bottom: 2px solid #b8b8b8;
+    }
+
+    .ag-header-cell {
+      background-color: #f0f0f0;
+      color: #333;
+      font-weight: 600;
+      border-right: 1px solid #d0d0d0;
+      padding: 12px 8px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 13px;
+    }
+
+    .ag-cell {
+      border-right: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 8px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    .ag-row {
+      height: 32px;
+      border-bottom: 1px solid #e0e0e0;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      &:nth-child(even) {
+        background-color: #fafafa;
+      }
+    }
+
+    .ag-row-even {
+      background-color: #ffffff;
+    }
+
+    .ag-row-odd {
+      background-color: #fafafa;
+    }
+
+    // Remove grid lines appearance for cleaner look
+    .ag-cell-focus {
+      border: 1px solid #4472c4;
+      outline: none;
+    }
+
+    // Payment button styling
+    .payment-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 28px;
+      margin-right: 5px;
+
+      &:hover {
+        background-color: #218838;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+
+    // Edit button styling
+    .edit-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 28px;
+      margin-right: 5px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+
+    // Delete button styling
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 28px;
+
+      &:hover {
+        background-color: #c82333;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+
+    // Invoice link styling
+    .invoice-link {
+      color: #093670 !important;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 500;
+
+      &:hover {
+        color: #0a4a8f !important;
+        text-decoration: none;
+      }
+    }
+
+    // Transfer amount link styling
+    .transfer-link {
+      color: #28a745 !important;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 600;
+
+      &:hover {
+        color: #218838 !important;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.excel-icon{
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.font-main{
+    color: #093670;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.add-invoice-btn {
+    margin-right: 15px;
+    padding: 8px 20px;
+    background-color: #093670;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+        background-color: #0a4a8f;
+    }
+
+    i {
+        font-size: 14px;
+    }
+}
+
+.btn-primary {
+    background-color: #093670;
+    color: white;
+    border: none;
+    
+    &:hover {
+        background-color: #0a4a8f;
+    }
+}

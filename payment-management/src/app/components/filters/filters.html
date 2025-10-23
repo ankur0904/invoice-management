@@ -1,0 +1,87 @@
+<div class="filters-container mt-3">
+  <div class="filters-header" (click)="toggleFilters()">
+    <div class="filters-title">
+      <i class="fa-solid fa-filter"></i>
+      <span>Filters</span>
+      <span *ngIf="hasActiveFilters()" class="active-badge">{{ 'Active' }}</span>
+    </div>
+    <i class="fa-solid" [ngClass]="isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+  </div>
+
+  <div class="filters-content" [ngClass]="{ 'expanded': isExpanded }">
+    <div class="filters-grid">
+      <!-- Bank Name Filter -->
+      <div class="filter-item">
+        <label for="bankName" class="filter-label">Bank Name</label>
+        <select 
+          id="bankName" 
+          class="filter-select" 
+          [(ngModel)]="filters.bankName"
+          name="bankName"
+        >
+          <option value="">All Banks</option>
+          <option *ngFor="let bank of banks" [value]="bank">{{ bank }}</option>
+        </select>
+      </div>
+
+      <!-- Status Filter -->
+      <div class="filter-item">
+        <label for="status" class="filter-label">Status</label>
+        <select 
+          id="status" 
+          class="filter-select" 
+          [(ngModel)]="filters.status"
+          name="status"
+        >
+          <option value="">All Statuses</option>
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+
+      <!-- Invoice Type Filter -->
+      <div class="filter-item">
+        <label for="invoiceType" class="filter-label">Invoice Type</label>
+        <select 
+          id="invoiceType" 
+          class="filter-select" 
+          [(ngModel)]="filters.invoiceType"
+          name="invoiceType"
+        >
+          <option value="">All Types</option>
+          <option *ngFor="let type of invoiceTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Bank Transfer Date Filter -->
+      <div class="filter-item">
+        <label for="bankTransferDate" class="filter-label">Bank Transfer Date</label>
+        <input 
+          type="date" 
+          id="bankTransferDate" 
+          class="filter-input" 
+          [(ngModel)]="filters.bankTransferDate"
+          name="bankTransferDate"
+        />
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="filters-actions">
+      <button 
+        type="button" 
+        class="btn btn-clear" 
+        (click)="clearFilters()"
+        [disabled]="!hasActiveFilters()"
+      >
+        <i class="fa-solid fa-times"></i> Clear
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-apply" 
+        (click)="applyFilters()"
+      >
+        <i class="fa-solid fa-check"></i> Apply Filters
+      </button>
+    </div>
+  </div>
+</div>

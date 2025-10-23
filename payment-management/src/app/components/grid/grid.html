@@ -1,0 +1,62 @@
+<div class="container-fluid mt-2">
+    
+    <h1>Invoice Management</h1>
+
+    <!-- Filters Section -->
+    <app-filters 
+      [banks]="uniqueBanks"
+      (filterApplied)="onFilterApplied($event)"
+      (filterCleared)="onFilterCleared()"
+    ></app-filters>
+
+    <div class="bg-design mt-2">
+        <div class="d-flex justify-content-between">
+            <p class="font-main ms-3">Invoices List</p>
+            <div class="d-flex justify-content-evenly">
+                <button class="btn btn-primary add-invoice-btn" (click)="openAddInvoiceModal()">
+                    <i class="fa-solid fa-plus"></i> Add Invoice
+                </button>
+                <input type="text" id="filter-text-box-ledger" class="form-control search-input" placeholder="Search..."
+                    style="max-width: 200px;" (input)="onFilterTextBoxChanged()" />
+                    <i class="fa-solid fa-download mt-2 excel-icon" (click)="onExportExcel()"></i>
+                <div class="d-flex">
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="grid-container">
+          <ag-grid-angular
+            [rowData]="rowData"
+            [columnDefs]="colDefs"
+            (gridReady)="onGridReady($event)"
+            [pagination]="pagination"
+            [paginationPageSize]="paginationPageSize"
+            [paginationPageSizeSelector]="paginationPageSizeSelector"
+            class="ag-theme-quartz"
+            style="width: 100%; height: 500px;"
+          ></ag-grid-angular>
+        </div>
+    </div>
+    
+    <!-- Add Invoice Modal -->
+    <app-add-invoice-modal 
+      (invoiceAdded)="onInvoiceAdded()"
+    ></app-add-invoice-modal>
+
+    <!-- Edit Invoice Modal -->
+    <app-edit-invoice-modal 
+      (invoiceUpdated)="onInvoiceUpdated()"
+    ></app-edit-invoice-modal>
+
+    <!-- Add Payment Modal -->
+    <app-add-payment-modal 
+      (paymentAdded)="onPaymentAdded()"
+    ></app-add-payment-modal>
+
+    <!-- Payment History Modal -->
+    <app-payment-history-modal></app-payment-history-modal>
+
+    <!-- Invoice Details Modal -->
+    <app-invoice-details-modal></app-invoice-details-modal>
+
+</div>

@@ -1,0 +1,127 @@
+<div class="modal-backdrop" *ngIf="isVisible">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Invoice</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <form (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="clientName" class="form-label">Client Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="clientName" [(ngModel)]="invoice.clientName" name="clientName" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="itemDescription" class="form-label">Item Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="itemDescription" [(ngModel)]="invoice.itemDescription" name="itemDescription" rows="2" required></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="invoiceNo" class="form-label">Invoice No. <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="invoiceNo" [(ngModel)]="invoice.invoiceNo" name="invoiceNo" required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="invoiceDate" class="form-label">Invoice Date <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="invoiceDate" [(ngModel)]="invoice.invoiceDate" name="invoiceDate" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="invoiceAmount" class="form-label">Invoice Amount <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="invoiceAmount" [(ngModel)]="invoice.invoiceAmount" name="invoiceAmount" step="0.01" min="0" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="currency" class="form-label">Currency <span class="text-danger">*</span></label>
+              <select class="form-control" id="currency" [(ngModel)]="invoice.currency" name="currency" required>
+                <option value="USD">USD - US Dollar ($)</option>
+                <option value="EUR">EUR - Euro (€)</option>
+                <option value="GBP">GBP - British Pound (£)</option>
+                <option value="INR">INR - Indian Rupee (₹)</option>
+                <option value="CNY">CNY - Chinese Yuan (¥)</option>
+                <option value="JPY">JPY - Japanese Yen (¥)</option>
+                <option value="AUD">AUD - Australian Dollar ($)</option>
+                <option value="CAD">CAD - Canadian Dollar ($)</option>
+                <option value="CHF">CHF - Swiss Franc (Fr)</option>
+                <option value="AED">AED - UAE Dirham (د.إ)</option>
+              </select>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label for="invoiceType" class="form-label">Invoice Type <span class="text-danger">*</span></label>
+              <select class="form-control" id="invoiceType" [(ngModel)]="invoice.invoiceType" name="invoiceType" required>
+                <option value="Service">Service</option>
+                <option value="Product">Product</option>
+                <option value="License">License</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="transferAmount" class="form-label">Transfer Amount <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="transferAmount" [(ngModel)]="invoice.transferAmount" name="transferAmount" step="0.01" min="0" required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="bankName" class="form-label">Bank Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="bankName" [(ngModel)]="invoice.bankName" name="bankName" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="bankRefNumber" class="form-label">Bank Reference Number</label>
+              <input type="text" class="form-control" id="bankRefNumber" [(ngModel)]="invoice.bankRefNumber" name="bankRefNumber">
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="bankTransferDate" class="form-label">Bank Transfer Date</label>
+              <input type="date" class="form-control" id="bankTransferDate" [(ngModel)]="invoice.bankTransferDate" name="bankTransferDate">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+              <select class="form-control" id="status" [(ngModel)]="invoice.status" name="status" required>
+                <option value="Paid">Paid</option>
+                <option value="Pending">Pending</option>
+                <option value="Partial">Partial</option>
+                <option value="Unpaid">Unpaid</option>
+              </select>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="remarks" class="form-label">Remarks</label>
+              <input type="text" class="form-control" id="remarks" [(ngModel)]="invoice.remarks" name="remarks">
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" [disabled]="isSubmitting">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+            <span *ngIf="isSubmitting">Saving...</span>
+            <span *ngIf="!isSubmitting">Add Invoice</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

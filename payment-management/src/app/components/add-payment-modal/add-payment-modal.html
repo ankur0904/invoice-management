@@ -1,0 +1,99 @@
+<div class="modal-backdrop" *ngIf="isVisible">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Payment</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <form (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Invoice Summary -->
+          <div class="invoice-summary" *ngIf="invoice">
+            <div class="summary-item">
+              <label>Invoice No:</label>
+              <span>{{ invoice.invoiceNo }}</span>
+            </div>
+            <div class="summary-item">
+              <label>Client:</label>
+              <span>{{ invoice.clientName }}</span>
+            </div>
+            <div class="summary-item">
+              <label>Invoice Amount:</label>
+              <span class="amount">{{ invoice.invoiceAmount | currency:(invoice.currency || 'USD') }}</span>
+            </div>
+            <div class="summary-item">
+              <label>Already Paid:</label>
+              <span class="amount">{{ (invoice.transferAmount || 0) | currency:(invoice.currency || 'USD') }}</span>
+            </div>
+            <div class="summary-item remaining">
+              <label>Remaining Amount:</label>
+              <span class="amount">{{ getRemainingAmount() | currency:(invoice.currency || 'USD') }}</span>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Payment Form -->
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="amount" class="form-label">Payment Amount <span class="text-danger">*</span></label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="amount" 
+                [(ngModel)]="payment.amount" 
+                name="amount" 
+                step="0.01" 
+                min="0" 
+                [max]="getRemainingAmount()"
+                required>
+              <small class="form-text">Maximum: {{ getRemainingAmount() | currency:(invoice?.currency || 'USD') }}</small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="paymentType" class="form-label">Payment Type <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="paymentType" 
+                [(ngModel)]="payment.paymentType" 
+                name="paymentType"
+                placeholder="e.g., Bank Transfer, Cash, Check, Online Payment"
+                required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="remarks" class="form-label">Remarks</label>
+              <textarea 
+                class="form-control" 
+                id="remarks" 
+                [(ngModel)]="payment.remarks" 
+                name="remarks"
+                rows="2"
+                placeholder="Optional notes about this payment"></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" [disabled]="isSubmitting">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+            <span *ngIf="isSubmitting">Adding...</span>
+            <span *ngIf="!isSubmitting">Add Payment</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

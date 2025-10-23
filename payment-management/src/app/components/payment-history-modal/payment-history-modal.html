@@ -1,0 +1,102 @@
+<div class="modal-backdrop" *ngIf="isVisible">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment History</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div *ngIf="isLoading" class="loading">
+          <p>Loading payment history...</p>
+        </div>
+
+        <div *ngIf="!isLoading">
+          <!-- Invoice Summary -->
+          <div class="invoice-header">
+            <div class="header-item">
+              <label>Invoice No:</label>
+              <span>{{ invoiceData.invoiceNo }}</span>
+            </div>
+            <div class="header-item">
+              <label>Client:</label>
+              <span>{{ invoiceData.clientName }}</span>
+            </div>
+          </div>
+
+          <!-- Payment Summary -->
+          <div class="payment-summary">
+            <div class="summary-row">
+              <span class="label">Invoice Amount:</span>
+              <span class="value">{{ formatCurrency(invoiceData.invoiceAmount, invoiceData.currency) }}</span>
+            </div>
+            <div class="summary-row paid">
+              <span class="label">Total Paid:</span>
+              <span class="value">{{ formatCurrency(invoiceData.transferAmount, invoiceData.currency) }}</span>
+            </div>
+            <div class="summary-row remaining">
+              <span class="label">Remaining:</span>
+              <span class="value">{{ formatCurrency(getRemainingAmount(), invoiceData.currency) }}</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+              </div>
+              <div class="progress-text">{{ getProgressPercentage().toFixed(1) }}% Paid</div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Payments List -->
+          <div class="payments-section">
+            <h6 class="section-title">
+              Payment Transactions 
+              <span class="badge">{{ invoiceData.payments?.length || 0 }}</span>
+            </h6>
+
+            <div *ngIf="!invoiceData.payments || invoiceData.payments.length === 0" class="no-payments">
+              <i class="fa-solid fa-inbox"></i>
+              <p>No payments recorded yet</p>
+            </div>
+
+            <div *ngIf="invoiceData.payments && invoiceData.payments.length > 0" class="payments-list">
+              <div *ngFor="let payment of invoiceData.payments; let i = index" class="payment-card">
+                <div class="payment-header">
+                  <span class="payment-number">#{{ i + 1 }}</span>
+                </div>
+                
+                <div class="payment-details">
+                  <div class="detail-row">
+                    <span class="detail-label">Amount:</span>
+                    <span class="detail-value amount">{{ formatCurrency(payment.amount, invoiceData.currency) }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Payment Type:</span>
+                    <span class="detail-value">{{ payment.paymentType }}</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Date:</span>
+                    <span class="detail-value">{{ formatDate(payment.paymentDate) }}</span>
+                  </div>
+                  <div *ngIf="payment.remarks" class="detail-row">
+                    <span class="detail-label">Remarks:</span>
+                    <span class="detail-value remarks">{{ payment.remarks }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

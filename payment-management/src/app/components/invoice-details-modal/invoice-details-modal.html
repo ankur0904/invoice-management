@@ -1,0 +1,100 @@
+<div class="modal-backdrop" *ngIf="isVisible">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="invoice">
+      <div class="modal-header">
+        <h5 class="modal-title">Invoice Details</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="invoice-header">
+          <div class="invoice-number">
+            <label>Invoice Number</label>
+            <h3>{{ invoice.invoiceNo }}</h3>
+          </div>
+          <div class="invoice-status">
+            <span class="status-badge" [ngClass]="getStatusClass(invoice.status)">
+              {{ invoice.status }}
+            </span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="section-title">Client Information</h6>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Client Name</label>
+              <p>{{ invoice.clientName }}</p>
+            </div>
+            <div class="info-item">
+              <label>Serial Number</label>
+              <p>{{ invoice.srNo }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="section-title">Invoice Details</h6>
+          <div class="info-grid">
+            <div class="info-item full-width">
+              <label>Item Description</label>
+              <p>{{ invoice.itemDescription }}</p>
+            </div>
+            <div class="info-item">
+              <label>Invoice Date</label>
+              <p>{{ formatDate(invoice.invoiceDate) }}</p>
+            </div>
+            <div class="info-item">
+              <label>Invoice Type</label>
+              <p>{{ invoice.invoiceType }}</p>
+            </div>
+            <div class="info-item">
+              <label>Currency</label>
+              <p>{{ getCurrencyDisplay(invoice.currency) }}</p>
+            </div>
+            <div class="info-item">
+              <label>Invoice Amount</label>
+              <p class="amount">{{ formatCurrencyWithSymbol(invoice.invoiceAmount, invoice.currency) }}</p>
+            </div>
+            <div class="info-item">
+              <label>Transfer Amount</label>
+              <p class="amount">{{ formatCurrencyWithSymbol(invoice.transferAmount, invoice.currency) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="section-title">Banking Information</h6>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Bank Name</label>
+              <p>{{ invoice.bankName }}</p>
+            </div>
+            <div class="info-item">
+              <label>Bank Reference Number</label>
+              <p>{{ invoice.bankRefNumber || 'N/A' }}</p>
+            </div>
+            <div class="info-item">
+              <label>Bank Transfer Date</label>
+              <p>{{ invoice.bankTransferDate || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="invoice.remarks">
+          <h6 class="section-title">Additional Information</h6>
+          <div class="info-item full-width">
+            <label>Remarks</label>
+            <p>{{ invoice.remarks }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
