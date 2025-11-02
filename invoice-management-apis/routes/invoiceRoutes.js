@@ -217,6 +217,52 @@ router.delete('/:id/payments/:paymentId', async (req, res) => {
   }
 });
 
+// @route   PUT /api/invoices/:id/material
+// @desc    Update material information for an invoice
+// @access  Public
+router.put('/:id/material', async (req, res) => {
+  try {
+    const { materialReceived, receiptDate, courierName, billingCustomer } = req.body;
+
+    const invoice = await Invoice.findById(req.params.id);
+
+    if (!invoice) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invoice not found'
+      });
+    }
+
+    // Update material fields
+    if (materialReceived !== undefined) {
+      invoice.materialReceived = materialReceived;
+    }
+    if (receiptDate !== undefined) {
+      invoice.receiptDate = receiptDate ? new Date(receiptDate) : null;
+    }
+    if (courierName !== undefined) {
+      invoice.courierName = courierName;
+    }
+    if (billingCustomer !== undefined) {
+      invoice.billingCustomer = billingCustomer;
+    }
+
+    await invoice.save();
+
+    res.json({
+      success: true,
+      message: 'Material information updated successfully',
+      data: invoice
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to update material information',
+      error: error.message
+    });
+  }
+});
+
 // @route   GET /api/invoices/:id
 // @desc    Get single invoice by ID
 // @access  Public

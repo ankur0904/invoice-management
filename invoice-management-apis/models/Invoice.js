@@ -97,6 +97,24 @@ const invoiceSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  // Material tracking fields
+  materialReceived: {
+    type: String,
+    enum: ['Yes', 'No'],
+    default: 'No',
+    trim: true
+  },
+  receiptDate: {
+    type: Date
+  },
+  courierName: {
+    type: String,
+    trim: true
+  },
+  billingCustomer: {
+    type: String,
+    trim: true
+  },
   payments: [paymentSchema]
 }, {
   timestamps: true
