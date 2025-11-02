@@ -113,6 +113,32 @@
       }
     }
 
+    // Material button styling
+    .material-btn {
+      background-color: #fd7e14;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 28px;
+      margin-right: 5px;
+
+      &:hover {
+        background-color: #e85d04;
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+
     // Delete button styling
     .delete-btn {
       background-color: #dc3545;

@@ -26,6 +26,11 @@ export interface Invoice {
   bankTransferDate?: string;
   status: 'Paid' | 'Pending' | 'Partial' | 'Unpaid';
   remarks?: string;
+  // Material tracking fields
+  materialReceived?: 'Yes' | 'No';
+  receiptDate?: string | Date;
+  courierName?: string;
+  billingCustomer?: string;
   payments?: Payment[];
 }
 
@@ -75,5 +80,15 @@ export class PaymentDataService {
 
   deletePayment(invoiceId: string, paymentId: string): Observable<ApiResponse<Invoice>> {
     return this.http.delete<ApiResponse<Invoice>>(`${this.apiUrl}/${invoiceId}/payments/${paymentId}`);
+  }
+
+  // Material tracking methods
+  updateMaterialInfo(invoiceId: string, materialData: {
+    materialReceived?: 'Yes' | 'No';
+    receiptDate?: string | Date;
+    courierName?: string;
+    billingCustomer?: string;
+  }): Observable<ApiResponse<Invoice>> {
+    return this.http.put<ApiResponse<Invoice>>(`${this.apiUrl}/${invoiceId}/material`, materialData);
   }
 }
